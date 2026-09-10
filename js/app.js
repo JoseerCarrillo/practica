@@ -50,18 +50,38 @@ async function obtenerUsuarios() {
 }
 
 async function obtenerUsuarios() {
-
+    try{
     const respuesta =
         await fetch(
             "https://jsonplaceholder.typicode.com/users"
         );
 
+     if (!respuesta.ok) {
+
+            throw new Error(
+                "Error al consultar usuarios"
+            );
+
+        }
     const usuarios =
         await respuesta.json();
 
     mostrarUsuarios(
         usuarios
     );
+    document
+    .querySelector(
+        "#totalUsuarios"
+    )
+    .textContent =
+        usuarios.length;
+}catch (error) {
+
+        console.error(
+            error
+        );
+
+    }
 
 }
 
@@ -99,5 +119,5 @@ function mostrarUsuarios(
 
         }
     );
-
+    
 }
